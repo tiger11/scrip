@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 
-public class Scrip implements Runnable{
+public class Scrip implements Runnable {
 
     private List<Symbol> symbols;
     private KiteConnect kiteConnect;
@@ -46,7 +46,12 @@ public class Scrip implements Runnable{
     }
 
     public ArrayList<Long> getTokens() {
-        return tokens;
+        ArrayList<Long> names =
+                symbols.stream()
+                        .map(o -> Long.valueOf(o.getInstrumentToken()))
+                        .collect(Collectors
+                                .toCollection(ArrayList::new));
+        return names;
     }
 
     @Override

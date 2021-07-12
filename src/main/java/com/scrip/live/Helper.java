@@ -11,6 +11,7 @@ import com.zerodhatech.models.HistoricalData;
 import org.json.JSONException;
 import org.ta4j.core.Bar;
 import org.ta4j.core.BarSeries;
+import org.ta4j.core.BaseBarSeries;
 import org.ta4j.core.num.Num;
 
 import java.io.FileWriter;
@@ -22,10 +23,11 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Helper {
 
-    public static HashMap<String, Num> updatePrevHigh(List<Symbol> getSymbolList) {
+    public static HashMap<String, Num> getPreviousHigh(List<Symbol> getSymbolList) {
         HashMap<String, Num> prevHigh = new HashMap<>();
         for (Symbol symbol :
                 getSymbolList) {
@@ -81,7 +83,8 @@ public class Helper {
             List<String[]> dataList = new ArrayList<String[]>();
 
             for (HistoricalData data : historicalData.dataArrayList) {
-                dataList.add(new String[]{data.timeStamp, String.valueOf(data.open), String.valueOf(data.high), String.valueOf(data.low), String.valueOf(data.close), String.valueOf(data.volume)});
+                dataList.add(new String[]{data.timeStamp, String.valueOf(data.open),
+                        String.valueOf(data.high), String.valueOf(data.low), String.valueOf(data.close), String.valueOf(data.volume)});
             }
             writer.writeAll(dataList);
             writer.close();
@@ -90,11 +93,18 @@ public class Helper {
         }
     }
 
-    public static void updatePreviousHigh(List<Symbol> getSymbolList) {
+    public static void updatePrevHigh(List<Symbol> getSymbolList) {
         LocalDateTime toDate = LocalDateTime.now().minusDays(1);
         for (Symbol s : getSymbolList) {
             Helper.seedScripData(toDate, "5minute"
                     , s.getInstrumentToken(), s.getTradingSymbol(), false);
+        }
+    }
+
+    public static void fetchAllBarsTemplate(List<Symbol> symbolList, ConcurrentHashMap<String, BarSeries> allBars) {
+        for (Symbol s :
+                symbolList) {
+            allBars.put(s.getInstrumentToken(), new BaseBarSeries(s.getTradingSymbol()));
         }
     }
 }

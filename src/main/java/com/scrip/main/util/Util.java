@@ -118,6 +118,7 @@ public class Util {
 
 	public static void main(String[] args) throws IOException, KiteException {
 		getAllInstruments();
+		System.exit(0);
 	}
 
 	public static ConnectionProperties getConnectionProperties() {

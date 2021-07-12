@@ -12,7 +12,7 @@ public class DataSeeder {
 	
 	public static void main(String[] args) throws Exception, KiteException{
 		
-		KiteConnect kiteSdk = new KiteConnect("2wt9irxkrndqayws", true);
+		KiteConnect kiteSdk = new KiteConnect("2wt9irxkrndqayws", false);
 		kiteSdk.setUserId("ZN8831");
 
 		/* First you should get request_token, public_token using kitconnect login and then use request_token, public_token, api_secret to make any kiteconnect api call.
@@ -21,7 +21,7 @@ public class DataSeeder {
 		System.out.println(url);
 		
 		// Get accessToken as follows,
-		User user =  kiteSdk.generateSession("Rgwf65fFcQ5AanjmGLd0QWC20oTLUxVH", "rvp8edbmhkqegq7ra31di2kgzxyonl9k");
+		User user =  kiteSdk.generateSession("UDTLh8Uru8g2Mz1hq2papM1bdJi8wB5a", "rvp8edbmhkqegq7ra31di2kgzxyonl9k");
 
 		// Set request token and public token which are obtained from login process.
 		kiteSdk.setAccessToken(user.accessToken);
@@ -43,7 +43,7 @@ public class DataSeeder {
 		cal.add(Calendar.YEAR, -1);
 		Date fromDate = cal.getTime();
 		
-		
+		System.exit(0);
 		/*
 		 * HistoricalData data = kiteSdk.getHistoricalData(fromDate, toDate, "408065",
 		 * "day", false); for(HistoricalData dataVal : data.dataArrayList) {
