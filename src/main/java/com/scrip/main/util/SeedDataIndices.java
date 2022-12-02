@@ -78,7 +78,7 @@ public static void seedScripData(Date fromDate, Date toDate, String duration, St
 		
 		List<Symbol> getSymbolList = Util.getIndicesList();
 		for(Symbol s : getSymbolList) {
-			seedScripData(fromDate, toDate, "15minute", s.getInstrumentToken(), s.getTradingSymbol(), false);
+			seedScripData(fromDate, toDate, "week", s.getInstrumentToken(), s.getTradingSymbol(), false);
 		}
 		System.exit(3);
 	}

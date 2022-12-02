@@ -12,7 +12,7 @@ public class DataSeeder {
 	
 	public static void main(String[] args) throws Exception, KiteException{
 		
-		KiteConnect kiteSdk = new KiteConnect("2wt9irxkrndqayws", false);
+		KiteConnect kiteSdk = new KiteConnect("n7q5z699ukce011k", false);
 		kiteSdk.setUserId("ZN8831");
 
 		/* First you should get request_token, public_token using kitconnect login and then use request_token, public_token, api_secret to make any kiteconnect api call.
@@ -21,7 +21,7 @@ public class DataSeeder {
 		System.out.println(url);
 		
 		// Get accessToken as follows,
-		User user =  kiteSdk.generateSession("UDTLh8Uru8g2Mz1hq2papM1bdJi8wB5a", "rvp8edbmhkqegq7ra31di2kgzxyonl9k");
+		User user =  kiteSdk.generateSession("0TrhQB5ONgWt1z3NtufXSfl7YDwnSHOI", "n44p02jgjrnhiarxa9qk7qkpozp0ew5n");
 
 		// Set request token and public token which are obtained from login process.
 		kiteSdk.setAccessToken(user.accessToken);

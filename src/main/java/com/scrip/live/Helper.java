@@ -41,7 +41,8 @@ public class Helper {
             Num dayHighTwo = Utils.getHighestCloseOfDay(barDataRun.get(dataSetSub.get(1)));
 
             Num dayHigh = (dayHighOne.isGreaterThanOrEqual(dayHighTwo)) ? dayHighOne : dayHighTwo;
-            prevHigh.put(symbol.getInstrumentToken(), dayHigh);
+            //prevHigh.put(symbol.getInstrumentToken(), dayHigh);
+            prevHigh.put(symbol.getTradingSymbol(), dayHigh);
         }
         return prevHigh;
     }
@@ -94,7 +95,7 @@ public class Helper {
     }
 
     public static void updatePrevHigh(List<Symbol> getSymbolList) {
-        LocalDateTime toDate = LocalDateTime.now().minusDays(1);
+        LocalDateTime toDate = LocalDateTime.now().minusDays(1).withHour(16);
         for (Symbol s : getSymbolList) {
             Helper.seedScripData(toDate, "5minute"
                     , s.getInstrumentToken(), s.getTradingSymbol(), false);

@@ -38,7 +38,7 @@ public class Util {
 	public static KiteConnect getKiteConnect() {
 		if (kiteSdk == null) {
 			ConnectionProperties props = getConnectionProperties();
-			kiteSdk = new KiteConnect(props.getApiKey());
+			kiteSdk = new KiteConnect(props.getApiKey(), false);
 			kiteSdk.setUserId(props.getUserId());
 
 			kiteSdk.setAccessToken(props.getAccessToken());
@@ -86,17 +86,32 @@ public class Util {
 
 	public static List<Symbol> getIndicesList() throws Exception {
 		List<Symbol> indicesList = new ArrayList<Symbol>();
-		InputStream in = new Util().getClass().getClassLoader().getResourceAsStream("indicesList.csv");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		while (reader.ready()) {
-			String[] line = reader.readLine().split(",");
+		File file = new File("D:\\files\\code\\scrip\\src\\main\\java\\indicesList.csv");
+
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		while (true) {
+			try {
+				if (!reader.ready()) break;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String[] line = new String[0];
+			try {
+				line = reader.readLine().split(",");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			Symbol sym = new Symbol();
 			sym.setExchangeToken(line[1]);
 			sym.setInstrumentToken(line[0]);
 			sym.setTradingSymbol(line[2]);
 			indicesList.add(sym);
 		}
-
 		return indicesList;
 	}
 

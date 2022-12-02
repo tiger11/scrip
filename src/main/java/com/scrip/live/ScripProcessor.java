@@ -27,7 +27,7 @@ public class ScripProcessor {
         ConcurrentHashMap<String, BarSeries> allBars = new ConcurrentHashMap<>();
         BlockingQueue<ArrayList<Tick>> tickQueue = new LinkedBlockingDeque<>();
 
-        Helper.updatePrevHigh(symbolList);
+        //Helper.updatePrevHigh(symbolList);
         HashMap<String, Num> previousHighs =  Helper.getPreviousHigh(symbolList);
         Helper.fetchAllBarsTemplate(symbolList, allBars);
 

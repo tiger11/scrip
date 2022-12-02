@@ -1,5 +1,11 @@
 package com.scrip.main.util;
 
+import com.opencsv.CSVWriter;
+import com.scrip.main.pojo.Symbol;
+import com.zerodhatech.kiteconnect.kitehttp.exceptions.KiteException;
+import com.zerodhatech.models.HistoricalData;
+import org.json.JSONException;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,28 +13,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
-import org.json.JSONException;
-
-import com.opencsv.CSVWriter;
-import com.scrip.main.pojo.Symbol;
-import com.zerodhatech.kiteconnect.kitehttp.exceptions.KiteException;
-import com.zerodhatech.models.HistoricalData;
-
-public class SeedData {
+public class SeedDataIndicesNew {
 	
 	public static void seedScripData(LocalDateTime toDate, String duration, String instrumentToken, String instrumentName, boolean continuous) {
 
-		LocalDateTime fromDate = toDate.minusDays(90);
+		LocalDateTime fromDate = toDate.minusDays(10);
 		ArrayList<HistoricalData> data = new ArrayList<>();
 		try {
-			while (fromDate.getYear() >= 2015) {
+			while (fromDate.getYear() >= 2020) {
 				HistoricalData historicalData = Util.getKiteConnect().getHistoricalData(Date.from(fromDate.atZone(ZoneId.systemDefault()).toInstant()),
 						Date.from(toDate.atZone(ZoneId.systemDefault()).toInstant()), instrumentToken, duration, continuous, false);
 				data.add(historicalData);
 				toDate = fromDate.minusDays(1);
-				fromDate = toDate.minusDays(90);
+				fromDate = toDate.minusDays(10);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -78,7 +80,7 @@ public class SeedData {
 
 		List<Symbol> getSymbolList = Util.getSymbolList();
 		for(Symbol s : getSymbolList) {
-			seedScripData(toDate, "week", s.getInstrumentToken(), s.getTradingSymbol(), false);
+			seedScripData(toDate, "minute", s.getInstrumentToken(), s.getTradingSymbol(), false);
 		}
 		System.exit(0);
 	}

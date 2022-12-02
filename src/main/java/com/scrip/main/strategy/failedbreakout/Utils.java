@@ -22,6 +22,10 @@ public class Utils {
         return barList.stream().max(Comparator.comparing(Bar::getHighPrice)).get().getHighPrice();
     }
 
+    public static Num getLowOfDay(List<Bar> barList){
+        return barList.stream().min(Comparator.comparing(Bar::getLowPrice)).get().getLowPrice();
+    }
+
     public static Num getHighestCloseOfDay(List<Bar> barList){
         return barList.stream().max(Comparator.comparing(Bar::getClosePrice)).get().getClosePrice();
     }
